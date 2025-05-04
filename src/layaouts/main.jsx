@@ -15,7 +15,17 @@ import {
   Paper,
   Chip,
 } from "@mui/material"
-import { Computer, Smartphone, AccessTime, Refresh, Public, Info, DarkMode, LightMode } from "@mui/icons-material"
+import {
+  Computer,
+  Smartphone,
+  AccessTime,
+  Refresh,
+  Public,
+  Info,
+  DarkMode,
+  LightMode,
+  Language,
+} from "@mui/icons-material"
 import { keyframes } from "@mui/system"
 
 const IPDashboard = () => {
@@ -32,16 +42,16 @@ const IPDashboard = () => {
   `
 
   const pulse = keyframes`
-    0% { box-shadow: 0 0 0 0 rgba(50, 205, 50, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(50, 205, 50, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(50, 205, 50, 0); }
+    0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
   `
 
   // Theme colors based on dark/light mode
   const theme = {
-    background: darkMode ? "#121212" : "#f5f5f5",
+    background: darkMode ? "#121212" : "#f8f9fa",
     cardBg: darkMode ? "#1e1e1e" : "#ffffff",
-    primary: darkMode ? "#32CD32" : "#2e7d32",
+    primary: darkMode ? "#4caf50" : "#2e7d32",
     text: darkMode ? "#e0e0e0" : "#333333",
     secondaryText: darkMode ? "#aaaaaa" : "#666666",
     divider: darkMode ? "rgba(255, 255, 255, 0.12)" : "rgba(0, 0, 0, 0.12)",
@@ -136,11 +146,11 @@ const IPDashboard = () => {
           height: "100%",
           backgroundColor: theme.cardBg,
           boxShadow: theme.cardShadow,
-          borderRadius: "12px",
+          borderRadius: "16px",
           overflow: "hidden",
           opacity: !loading && mounted ? 1 : 0,
           transform: !loading && mounted ? "translateY(0)" : "translateY(20px)",
-          transition: "transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease",
+          transition: "transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease",
           transitionDelay: `${delay}ms`,
           "&:hover": {
             transform: "translateY(-5px)",
@@ -161,13 +171,13 @@ const IPDashboard = () => {
             <Box
               sx={{
                 mr: 2,
-                color: theme.primary,
+                color: "#fff",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                p: 1,
-                borderRadius: "50%",
-                backgroundColor: `${theme.primary}20`,
+                p: 1.5,
+                borderRadius: "12px",
+                backgroundColor: theme.primary,
               }}
             >
               {icon}
@@ -195,8 +205,14 @@ const IPDashboard = () => {
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        mb: 1,
+        mb: 1.5,
         flexWrap: "wrap",
+        p: 1,
+        borderRadius: "8px",
+        "&:hover": {
+          backgroundColor: `${theme.primary}10`,
+        },
+        transition: "background-color 0.2s ease",
       }}
     >
       <Typography
@@ -212,7 +228,7 @@ const IPDashboard = () => {
       <Typography
         variant="body2"
         sx={{
-          fontWeight: 400,
+          fontWeight: 500,
           color: theme.text,
           wordBreak: "break-word",
         }}
@@ -241,39 +257,50 @@ const IPDashboard = () => {
             mb: 4,
           }}
         >
-          <Typography
-            variant="h3"
-            sx={{
-              color: theme.primary,
-              fontWeight: 700,
-              fontSize: isMobile ? "2rem" : "2.5rem",
-              animation: `${pulse} 2s infinite`,
-              textShadow: darkMode ? "0 0 10px rgba(50, 205, 50, 0.5)" : "none",
-            }}
-          >
-            EJEMPLO PRACTICO IP DASHBOARD 
-          </Typography>
+          <Box sx={{ display: "flex", alignItems: "center" }}>
+            <Language
+              sx={{
+                color: theme.primary,
+                fontSize: isMobile ? "2.5rem" : "3rem",
+                mr: 2,
+                animation: `${pulse} 2s infinite`,
+              }}
+            />
+            <Typography
+              variant="h3"
+              sx={{
+                color: theme.primary,
+                fontWeight: 700,
+                fontSize: isMobile ? "2rem" : "2.5rem",
+                textShadow: darkMode ? "0 0 10px rgba(76, 175, 80, 0.5)" : "none",
+              }}
+            >
+              ¿CUÁL ES MI IP?
+            </Typography>
+          </Box>
 
           <Box sx={{ display: "flex", gap: 1 }}>
-            <Tooltip title="Refresh data">
+            <Tooltip title="Actualizar datos">
               <IconButton
                 onClick={fetchData}
                 disabled={loading}
                 sx={{
                   color: theme.primary,
-                  "&:hover": { backgroundColor: `${theme.primary}20` },
+                  backgroundColor: `${theme.primary}15`,
+                  "&:hover": { backgroundColor: `${theme.primary}25` },
                 }}
               >
                 <Refresh />
               </IconButton>
             </Tooltip>
 
-            <Tooltip title={darkMode ? "Light mode" : "Dark mode"}>
+            <Tooltip title={darkMode ? "Modo claro" : "Modo oscuro"}>
               <IconButton
                 onClick={() => setDarkMode(!darkMode)}
                 sx={{
                   color: theme.primary,
-                  "&:hover": { backgroundColor: `${theme.primary}20` },
+                  backgroundColor: `${theme.primary}15`,
+                  "&:hover": { backgroundColor: `${theme.primary}25` },
                 }}
               >
                 {darkMode ? <LightMode /> : <DarkMode />}
@@ -285,15 +312,15 @@ const IPDashboard = () => {
         <Paper
           elevation={0}
           sx={{
-            p: 2,
+            p: 2.5,
             mb: 4,
             backgroundColor: `${theme.primary}15`,
-            borderRadius: "8px",
+            borderRadius: "12px",
             border: `1px solid ${theme.primary}30`,
           }}
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Info sx={{ color: theme.primary, mr: 1 }} />
+            <Info sx={{ color: theme.primary, mr: 1.5, fontSize: "1.2rem" }} />
             <Typography variant="body2" sx={{ color: theme.text }}>
               Los datos de ubicación y geolocalización son aproximados y dependen de la información proporcionada por el
               proveedor de servicios de IP, que puede no reflejar la ubicación real del dispositivo.
@@ -311,7 +338,7 @@ const IPDashboard = () => {
               height: "50vh",
             }}
           >
-            <CircularProgress size={60} thickness={4} sx={{ color: theme.primary, mb: 2 }} />
+            <CircularProgress size={70} thickness={4} sx={{ color: theme.primary, mb: 2 }} />
             <Typography variant="h6" sx={{ color: theme.text }}>
               Obteniendo información...
             </Typography>
@@ -322,7 +349,7 @@ const IPDashboard = () => {
               p: 3,
               backgroundColor: "#fdeded",
               color: "#5f2120",
-              borderRadius: "8px",
+              borderRadius: "12px",
             }}
           >
             <Typography variant="h6">{error}</Typography>
@@ -344,28 +371,32 @@ const IPDashboard = () => {
                         display: "flex",
                         alignItems: "center",
                         mb: 2,
-                        p: 2,
+                        p: 2.5,
                         backgroundColor: `${theme.primary}15`,
-                        borderRadius: "8px",
+                        borderRadius: "12px",
+                        justifyContent: "center",
+                        flexDirection: "column",
                       }}
                     >
                       <Typography
-                        variant="h5"
+                        variant="h4"
                         sx={{
                           fontWeight: 700,
                           color: theme.primary,
-                          mr: 2,
+                          mb: 1,
                         }}
                       >
                         {responseData.ipInfo.ip || "No disponible"}
                       </Typography>
                       <Chip
                         label={responseData.ipInfo.country || "??"}
-                        size="small"
+                        size="medium"
                         sx={{
                           backgroundColor: theme.primary,
                           color: "#fff",
                           fontWeight: 500,
+                          fontSize: "0.9rem",
+                          padding: "4px",
                         }}
                       />
                     </Box>
@@ -382,6 +413,26 @@ const IPDashboard = () => {
 
                 <Grid item xs={12} md={6}>
                   <InfoCard title="Sistema" icon={<Computer fontSize="medium" />} delay={200}>
+                    <Box
+                      sx={{
+                        mb: 2,
+                        p: 2.5,
+                        backgroundColor: `${theme.primary}15`,
+                        borderRadius: "12px",
+                        textAlign: "center",
+                      }}
+                    >
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          fontWeight: 600,
+                          color: theme.primary,
+                          mb: 1,
+                        }}
+                      >
+                        Información del Sistema
+                      </Typography>
+                    </Box>
                     <InfoItem label="User Agent" value={responseData.clientData.userAgent} />
                     <InfoItem label="Plataforma" value={responseData.clientData.platform} />
                     <InfoItem label="Idioma" value={responseData.clientData.language} />
@@ -398,17 +449,17 @@ const IPDashboard = () => {
                         flexDirection: "column",
                         alignItems: "center",
                         mb: 2,
-                        p: 2,
+                        p: 2.5,
                         backgroundColor: `${theme.primary}15`,
-                        borderRadius: "8px",
+                        borderRadius: "12px",
                       }}
                     >
                       <Typography
                         variant="body1"
                         sx={{
-                          fontWeight: 500,
-                          color: theme.text,
-                          mb: 1,
+                          fontWeight: 600,
+                          color: theme.primary,
+                          mb: 1.5,
                         }}
                       >
                         Dimensiones de pantalla
@@ -418,17 +469,18 @@ const IPDashboard = () => {
                         sx={{
                           position: "relative",
                           width: "100%",
-                          maxWidth: "200px",
-                          height: "120px",
+                          maxWidth: "220px",
+                          height: "140px",
                           border: `2px solid ${theme.primary}`,
-                          borderRadius: "8px",
+                          borderRadius: "12px",
                           display: "flex",
                           justifyContent: "center",
                           alignItems: "center",
                           backgroundColor: `${theme.primary}10`,
+                          boxShadow: `0 0 15px ${theme.primary}30`,
                         }}
                       >
-                        <Typography variant="body2" sx={{ color: theme.text }}>
+                        <Typography variant="body2" sx={{ color: theme.text, fontWeight: 500 }}>
                           {responseData.clientData.screenWidth} × {responseData.clientData.screenHeight}
                         </Typography>
 
@@ -443,16 +495,14 @@ const IPDashboard = () => {
                             minWidth: "30%",
                             minHeight: "30%",
                             border: `2px dashed ${theme.primary}`,
-                            borderRadius: "4px",
+                            borderRadius: "8px",
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
                             backgroundColor: `${theme.primary}20`,
                           }}
                         >
-                          <Typography variant="caption" sx={{ color: theme.text, fontSize: "0.6rem" }}>
-                           
-                          </Typography>
+                          <Typography variant="caption" sx={{ color: theme.text, fontSize: "0.6rem" }}></Typography>
                         </Box>
                       </Box>
                     </Box>
@@ -474,15 +524,15 @@ const IPDashboard = () => {
                         mb: 2,
                         p: 3,
                         backgroundColor: `${theme.primary}15`,
-                        borderRadius: "8px",
+                        borderRadius: "12px",
                       }}
                     >
                       <Typography
                         variant="body1"
                         sx={{
-                          fontWeight: 500,
-                          color: theme.text,
-                          mb: 1,
+                          fontWeight: 600,
+                          color: theme.primary,
+                          mb: 1.5,
                         }}
                       >
                         Fecha y hora de consulta
@@ -501,7 +551,6 @@ const IPDashboard = () => {
                     </Box>
 
                     <InfoItem label="Zona Horaria" value={responseData.ipInfo.timezone || "No disponible"} />
-
                     <InfoItem label="Timestamp" value={responseData.clientData.timestamp} />
                   </InfoCard>
                 </Grid>
@@ -527,4 +576,3 @@ const IPDashboard = () => {
 }
 
 export default IPDashboard
-
